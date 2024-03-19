@@ -27,3 +27,67 @@ GROUP BY 1;
 FROM appointment
 GROUP BY 1
 ORDER BY 2 DESC;
+
+-- speciality of doctotrs
+
+SELECT 
+	  o.doctor_id,
+      o.name,
+      s.speciality_id,
+      s.name
+FROM doctor AS o
+LEFT JOIN speciality AS s
+ON o.speciality_id=s.speciality_id;
+
+-- no of specialist doctors
+
+SELECT 
+      s.name,
+      COUNT(DISTINCT o.doctor_id) AS docs
+ FROM doctor AS o
+LEFT JOIN speciality AS s
+ON o.speciality_id=s.speciality_id     
+GROUP BY 1
+ORDER BY 2 desc;
+
+-- category wise drug use
+
+SELECT 
+     description,
+     COUNT(DISTINCT medication_id) AS items_sold
+FROM medication
+GROUP BY 1;
+
+-- top manufacturers
+
+SELECT 
+     manufacturer,
+     COUNT(DISTINCT medication_id) AS items_sold
+FROM medication
+GROUP BY 1
+ORDER BY 2 DESC;
+
+-- usage by strength
+
+SELECT 
+     strength,
+     COUNT(DISTINCT medication_id) AS medication_used
+FROM medication
+GROUP BY 1
+ORDER BY 2 DESC;
+
+-- no. of male and female patients
+
+SELECT 
+     gender,
+     COUNT(DISTINCT patient_id) AS no_of_patients
+FROM patient
+GROUP BY 1;
+
+-- statewise no. of patient
+
+SELECT 
+     state_code,
+     COUNT(DISTINCT patient_id) AS no_of_patients
+FROM patient
+GROUP BY 1;
